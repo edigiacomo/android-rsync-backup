@@ -1,0 +1,63 @@
+#!/bin/bash
+dest="user@host:~/android-backup/"
+ssid="mywifi"
+src="$HOME/storage/dcim/camera"
+
+check_ssid=yes
+dry_run=no
+verbose=no
+debug=no
+rsync_opts="-azz --info=progress1"
+
+show_help()
+{
+    echo "Usage: $0 [OPTION]"
+    echo
+    echo "Options:"
+    echo "-i      ignore SSID check"
+    echo "-n      dry run"
+    echo "-v      verbose"
+    echo "-h      show this help and exit"
+}
+
+missing_programs=""
+for p in rsync termux-wifi-connectioninfo jq
+do
+    which $p &>/dev/null || missing_programs="$missing_programs $p"
+done
+if [[ -n "$missing_programs" ]]
+then
+    echo "Please install the following programs:$missing_programs"
+    exit 1
+fi
+
+while getopts "invdh" opt
+do
+    case $opt in
+        i) check_ssid=no ;;
+        d) dest="$OPTARG" ;;
+        s) ssid="$OPTARG" ;;
+        n) dry_run=yes ;;
+        v) verbose=yes ;;
+        h) show_help; exit 0 ;;
+        *) show_help; exit 1 ;;
+    esac
+done
+
+if [[ "$check_ssid" = yes ]]
+then
+    printf "Checking if SSID is $ssid: "
+    if [[ "$ssid" != "termux-wifi-connectioninfo | jq -r '.ssid')" ]]
+    then
+        echo "no, exiting."
+        exit 0
+    else
+        echo "yes"
+    fi
+fi
+
+[[ "$verbose" = yes ]] && rsync_opts="$rsync_opts --verbose"
+[[ "$dry_run" = yes ]] && rsync_opts="$rsync_opts --dry-run"
+
+echo "Starting backup"
+rsync $rsync_opts $src $dest
