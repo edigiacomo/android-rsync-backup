@@ -9,18 +9,18 @@
 - Install the dependencies `apt install rsync openssh jq`.
 - Generate ssh key `ssh-keygen`.
 - Copy ssh key to destination `ssh-copy-id user@host`.
-- Copy `android-backup` (e.g in your home folder).
-- Edit variables `src`, `dest` and `ssid` in `android-backup` script.
+- Copy `android-rsync-backup` (e.g in your home folder).
+- Edit variables `src`, `dest` and `ssid` in `android-rsync-backup` script.
 
 ## Manual backup
 
-Run the script from Termux: `~/android-backup` or add the script to homescreen
+Run the script from Termux: `~/android-rsync-backup` or add the script to homescreen
 with Termux:Widget.
 
 ## Periodic backup with cron
 
 - Activate cron `crond`
-- Add `android-backup` to `crontab`
+- Add `android-rsync-backup` to `crontab`
 - Set `ACQUIRE WAKELOCK` for Termux
 
 ## Activate the backup using Tasker
