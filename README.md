@@ -2,10 +2,9 @@
 
 ## Installation
 
-- Install Termux and Termux:API (e.g. from
-  [F-Droid][https://f-droid.org/]).
-- [Activate the storage in
-  Termux][https://wiki.termux.com/wiki/Internal_and_external_storage].
+- Install Termux and Termux:API (e.g. from [F-Droid](https://f-droid.org/)). 
+- [Activate the storage in 
+  Termux](https://wiki.termux.com/wiki/Internal_and_external_storage).
 - Install the dependencies `apt install rsync openssh jq`.
 - Generate ssh key `ssh-keygen`.
 - Copy ssh key to destination `ssh-copy-id user@host`.
