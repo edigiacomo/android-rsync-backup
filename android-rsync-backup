@@ -47,7 +47,7 @@ done
 if [[ "$check_ssid" = yes ]]
 then
     printf "Checking if SSID is $ssid: "
-    if [[ "$ssid" != "termux-wifi-connectioninfo | jq -r '.ssid')" ]]
+    if [[ "$ssid" != "$(termux-wifi-connectioninfo | jq -r '.ssid')" ]]
     then
         echo "no, exiting."
         exit 0
